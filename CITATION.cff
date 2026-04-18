@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this preprint package, please cite the manuscript below."
+title: "Kit-State Lifecycle: A Comprehensive Unified Bridge from Quantum Manifestation to Classical Structure"
+version: "v.2.2.0"
+date-released: 2026-04-17
+doi: "10.5281/zenodo.19638157"
+url: "https://doi.org/10.5281/zenodo.19638157"
+authors:
+  - family-names: "Kitcey"
+    given-names: "R. D."
+license: "CC-BY-4.0"
+preferred-citation:
+  type: article
+  title: "Kit-State Lifecycle: A Comprehensive Unified Bridge from Quantum Manifestation to Classical Structure"
+  authors:
+    - family-names: "Kitcey"
+      given-names: "R. D."
+  year: 2026
+  version: "v.2.2.0"
+  doi: "10.5281/zenodo.19638157"
+  url: "https://doi.org/10.5281/zenodo.19638157"
+  notes: "Version-specific citation DOI: 10.5281/zenodo.19638157. Cite all versions via the Zenodo concept DOI 10.5281/zenodo.19636640, which resolves to the latest version."

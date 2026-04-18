@@ -1,0 +1,255 @@
+{
+  "schema_version": "1.0.0",
+  "report_type": "ksl_scorecard_run_report",
+  "run_metadata": {
+    "run_id": "rc1-reject-demo-2026-04-16-001",
+    "release_lane": "v2.1.0-rc1",
+    "manuscript_version": "Kitcey_2026_KSL_as_a_Quantum-Classical_Bridge.v.2.1.0-rc1",
+    "timestamp_utc": "2026-04-16T09:00:00Z",
+    "operator": "GitHub Copilot",
+    "command_invocation": "python validate_scorecard_run_report.py scorecard_run_report.example.reject.json",
+    "random_seed_policy": "fixed",
+    "random_seed": 314159
+  },
+  "inputs_bundle": {
+    "datasets": [
+      {
+        "name": "bridge_operator_timeseries_overstressed",
+        "path_or_uri": "bridge_operator_timeseries_steps180.csv",
+        "digest": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+        "digest_algorithm": "SHA-256",
+        "role": "primary_timeseries"
+      }
+    ],
+    "preprocessing_policy": "Canonical CSV parse; branch tracking frozen before scoring.",
+    "calibration_window": {
+      "a_min": 0.15,
+      "a_max": 0.55,
+      "chi_min": 0.0,
+      "chi_max": 0.72,
+      "label": "bounded calibration window"
+    },
+    "held_out_window": {
+      "a_min": 0.56,
+      "a_max": 0.99,
+      "chi_min": 0.73,
+      "chi_max": 1.40,
+      "label": "high-stress held-out extension"
+    },
+    "sample_counts": {
+      "calibration_samples": 150,
+      "held_out_samples": 30,
+      "notes": "High-stress extension pushed beyond regime where gap remains protected."
+    },
+    "tolerance_bands": [
+      {
+        "metric": "gap_closure_error",
+        "rule": "absolute_error <= tolerance",
+        "value": 0.02,
+        "units": "dimensionless"
+      },
+      {
+        "metric": "retention_ordering_violation_rate",
+        "rule": "fraction <= tolerance",
+        "value": 0.05,
+        "units": "fraction"
+      }
+    ]
+  },
+  "freeze_hash": {
+    "algorithm": "SHA-256",
+    "value": "deadbeef9f93b0c4b71f0ca89f6aa4e55af0f6d723652f9b778d64833f6a9a6db",
+    "scope": [
+      "generator_specification",
+      "coarse_graining_map",
+      "thresholds",
+      "input_bundle"
+    ],
+    "canonicalization_method": "UTF-8 JSON canonicalization with sorted keys over frozen config bundle."
+  },
+  "row_outcomes": [
+    {
+      "row_id": "symmetry_conservation_class",
+      "row_label": "Symmetry/conservation class",
+      "required_row": true,
+      "measured_statistics": [
+        {
+          "name": "conserved_charge_residual",
+          "value": 0.0,
+          "units": "dimensionless",
+          "threshold_rule": "must equal 0 within numerical tolerance"
+        }
+      ],
+      "uncertainty_intervals": [
+        {
+          "name": "conserved_charge_residual_ci95",
+          "lower": 0.0,
+          "upper": 0.0,
+          "confidence_level": 0.95
+        }
+      ],
+      "calibration_status": "Pass",
+      "held_out_status": "Pass",
+      "rationale": "Conserved-charge algebra closes on both windows."
+    },
+    {
+      "row_id": "gap_protection_logic",
+      "row_label": "Gap-protection logic",
+      "required_row": true,
+      "measured_statistics": [
+        {
+          "name": "classical_supporting_gap_min",
+          "value": -0.03,
+          "units": "dimensionless",
+          "threshold_rule": "must remain positive before declared closure point"
+        },
+        {
+          "name": "gap_closure_error",
+          "value": 0.07,
+          "units": "dimensionless",
+          "threshold_rule": "absolute_error <= 0.02"
+        }
+      ],
+      "uncertainty_intervals": [
+        {
+          "name": "gap_closure_error_ci95",
+          "lower": 0.05,
+          "upper": 0.09,
+          "confidence_level": 0.95
+        }
+      ],
+      "calibration_status": "Pass",
+      "held_out_status": "Fail",
+      "rationale": "Gap collapses in the high-stress held-out window before the claimed closure point; band-stability criterion violated."
+    },
+    {
+      "row_id": "leakage_retention_geometry",
+      "row_label": "Leakage/retention geometry",
+      "required_row": true,
+      "measured_statistics": [
+        {
+          "name": "retention_ordering_violation_rate",
+          "value": 0.14,
+          "units": "fraction",
+          "threshold_rule": "fraction <= 0.05"
+        }
+      ],
+      "uncertainty_intervals": [
+        {
+          "name": "retention_ordering_violation_rate_ci95",
+          "lower": 0.10,
+          "upper": 0.18,
+          "confidence_level": 0.95
+        }
+      ],
+      "calibration_status": "Pass",
+      "held_out_status": "Fail",
+      "rationale": "Retention ordering breaks in high-stress extension; violation rate exceeds declared tolerance by 2.8x."
+    },
+    {
+      "row_id": "projector_derived_observables",
+      "row_label": "Projector-derived observables",
+      "required_row": true,
+      "measured_statistics": [
+        {
+          "name": "independent_kernel_count",
+          "value": 0,
+          "units": "count",
+          "threshold_rule": "must equal 0"
+        }
+      ],
+      "uncertainty_intervals": [
+        {
+          "name": "independent_kernel_count_ci95",
+          "lower": 0,
+          "upper": 0,
+          "confidence_level": 0.95
+        }
+      ],
+      "calibration_status": "Pass",
+      "held_out_status": "Pass",
+      "rationale": "Observable reconstruction stays projector-derived throughout."
+    },
+    {
+      "row_id": "threshold_mechanism",
+      "row_label": "Threshold mechanism",
+      "required_row": true,
+      "measured_statistics": [
+        {
+          "name": "chi_crit_branch_discontinuities",
+          "value": 2,
+          "units": "count",
+          "threshold_rule": "must equal 0"
+        }
+      ],
+      "uncertainty_intervals": [
+        {
+          "name": "chi_crit_branch_discontinuities_ci95",
+          "lower": 1,
+          "upper": 3,
+          "confidence_level": 0.95
+        }
+      ],
+      "calibration_status": "Pass",
+      "held_out_status": "Fail",
+      "rationale": "Two branch discontinuities detected in the high-stress window; chi_crit loses continuity beyond stress regime."
+    }
+  ],
+  "uv_gate_outcomes": [
+    {
+      "gate_id": "UV1",
+      "status": "Not Triggered",
+      "trigger_evidence": "An admissible generator exists over the calibration domain.",
+      "linked_rows": [
+        "symmetry_conservation_class"
+      ]
+    },
+    {
+      "gate_id": "UV2",
+      "status": "Triggered",
+      "trigger_evidence": "chi_crit extraction produces branch discontinuities in the held-out window; coefficient derivation loses regularity under high stress.",
+      "linked_rows": [
+        "projector_derived_observables",
+        "threshold_mechanism"
+      ]
+    },
+    {
+      "gate_id": "UV3",
+      "status": "Triggered",
+      "trigger_evidence": "Classical-supporting band collapses in held-out stress window; leakage violation rate 0.14 exceeds tolerance 0.05.",
+      "linked_rows": [
+        "gap_protection_logic",
+        "leakage_retention_geometry",
+        "threshold_mechanism"
+      ]
+    },
+    {
+      "gate_id": "UV4",
+      "status": "Not Triggered",
+      "trigger_evidence": "No cross-regime incompatibility observed on the calibration window; high-stress failure is regime-limited rather than universality-breaking.",
+      "linked_rows": [
+        "symmetry_conservation_class",
+        "gap_protection_logic",
+        "leakage_retention_geometry",
+        "projector_derived_observables"
+      ]
+    }
+  ],
+  "final_decision": {
+    "decision": "Reject",
+    "justification": "Required rows gap_protection_logic, leakage_retention_geometry, and threshold_mechanism fail on the held-out window; UV gates UV2 and UV3 are triggered.",
+    "based_on_rows": [
+      "gap_protection_logic",
+      "leakage_retention_geometry",
+      "threshold_mechanism"
+    ],
+    "triggered_gates": [
+      "UV2",
+      "UV3"
+    ]
+  },
+  "notes": [
+    "Reject demonstration instance: high-stress extension exposes band collapse and leakage breakdown.",
+    "Resolution path: narrow the held-out window to the regime where band stability is maintained, or revise the generator class to extend gap protection."
+  ]
+}

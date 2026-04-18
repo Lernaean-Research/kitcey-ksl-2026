@@ -1,0 +1,522 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ksl:scorecard-run-report:schema:1.0.0",
+  "title": "KSL Scorecard Run Report",
+  "description": "Machine-readable companion schema for the one-page scorecard run report template in the rc1 manuscript.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_type",
+    "run_metadata",
+    "inputs_bundle",
+    "freeze_hash",
+    "row_outcomes",
+    "uv_gate_outcomes",
+    "final_decision"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "report_type": {
+      "type": "string",
+      "const": "ksl_scorecard_run_report"
+    },
+    "run_metadata": {
+      "$ref": "#/$defs/runMetadata"
+    },
+    "inputs_bundle": {
+      "$ref": "#/$defs/inputsBundle"
+    },
+    "freeze_hash": {
+      "$ref": "#/$defs/freezeHash"
+    },
+    "row_outcomes": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "$ref": "#/$defs/rowOutcome"
+      }
+    },
+    "uv_gate_outcomes": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "$ref": "#/$defs/uvGateOutcome"
+      }
+    },
+    "final_decision": {
+      "$ref": "#/$defs/finalDecision"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    }
+  },
+  "$defs": {
+    "scalarValue": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
+    },
+    "runMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "release_lane",
+        "manuscript_version",
+        "timestamp_utc",
+        "operator",
+        "command_invocation",
+        "random_seed_policy"
+      ],
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "release_lane": {
+          "type": "string",
+          "minLength": 1
+        },
+        "manuscript_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timestamp_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "operator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command_invocation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "random_seed_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "random_seed": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        }
+      }
+    },
+    "datasetRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "path_or_uri"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path_or_uri": {
+          "type": "string",
+          "minLength": 1
+        },
+        "digest": {
+          "type": "string",
+          "minLength": 1
+        },
+        "digest_algorithm": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "a_min",
+        "a_max",
+        "chi_min",
+        "chi_max"
+      ],
+      "properties": {
+        "a_min": {
+          "$ref": "#/$defs/scalarValue"
+        },
+        "a_max": {
+          "$ref": "#/$defs/scalarValue"
+        },
+        "chi_min": {
+          "$ref": "#/$defs/scalarValue"
+        },
+        "chi_max": {
+          "$ref": "#/$defs/scalarValue"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "sampleCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "calibration_samples",
+        "held_out_samples"
+      ],
+      "properties": {
+        "calibration_samples": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "held_out_samples": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "toleranceBand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric",
+        "rule"
+      ],
+      "properties": {
+        "metric": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "$ref": "#/$defs/scalarValue"
+        },
+        "units": {
+          "type": "string"
+        }
+      }
+    },
+    "inputsBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "datasets",
+        "preprocessing_policy",
+        "calibration_window",
+        "held_out_window",
+        "sample_counts",
+        "tolerance_bands"
+      ],
+      "properties": {
+        "datasets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/datasetRef"
+          }
+        },
+        "preprocessing_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "calibration_window": {
+          "$ref": "#/$defs/window"
+        },
+        "held_out_window": {
+          "$ref": "#/$defs/window"
+        },
+        "sample_counts": {
+          "$ref": "#/$defs/sampleCounts"
+        },
+        "tolerance_bands": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/toleranceBand"
+          }
+        }
+      }
+    },
+    "freezeHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "value",
+        "scope"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "enum": [
+            "SHA-256",
+            "SHA-512",
+            "BLAKE3",
+            "OTHER"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "generator_specification",
+              "coarse_graining_map",
+              "thresholds",
+              "input_bundle"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "canonicalization_method": {
+          "type": "string"
+        }
+      }
+    },
+    "measuredStatistic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "$ref": "#/$defs/scalarValue"
+        },
+        "units": {
+          "type": "string"
+        },
+        "threshold_rule": {
+          "type": "string"
+        }
+      }
+    },
+    "uncertaintyInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "lower",
+        "upper"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lower": {
+          "$ref": "#/$defs/scalarValue"
+        },
+        "upper": {
+          "$ref": "#/$defs/scalarValue"
+        },
+        "confidence_level": {
+          "$ref": "#/$defs/scalarValue"
+        }
+      }
+    },
+    "rowOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "row_id",
+        "row_label",
+        "measured_statistics",
+        "uncertainty_intervals",
+        "calibration_status",
+        "held_out_status",
+        "rationale"
+      ],
+      "properties": {
+        "row_id": {
+          "type": "string",
+          "enum": [
+            "symmetry_conservation_class",
+            "gap_protection_logic",
+            "leakage_retention_geometry",
+            "projector_derived_observables",
+            "threshold_mechanism"
+          ]
+        },
+        "row_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_row": {
+          "type": "boolean",
+          "default": true
+        },
+        "measured_statistics": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/measuredStatistic"
+          }
+        },
+        "uncertainty_intervals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/uncertaintyInterval"
+          }
+        },
+        "calibration_status": {
+          "type": "string",
+          "enum": [
+            "Pass",
+            "Fail"
+          ]
+        },
+        "held_out_status": {
+          "type": "string",
+          "enum": [
+            "Pass",
+            "Fail"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "uvGateOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gate_id",
+        "status",
+        "trigger_evidence",
+        "linked_rows"
+      ],
+      "properties": {
+        "gate_id": {
+          "type": "string",
+          "enum": [
+            "UV1",
+            "UV2",
+            "UV3",
+            "UV4"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Triggered",
+            "Not Triggered"
+          ]
+        },
+        "trigger_evidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "linked_rows": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "symmetry_conservation_class",
+              "gap_protection_logic",
+              "leakage_retention_geometry",
+              "projector_derived_observables",
+              "threshold_mechanism"
+            ]
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "finalDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "justification",
+        "based_on_rows",
+        "triggered_gates"
+      ],
+      "properties": {
+        "decision": {
+          "type": "string",
+          "enum": [
+            "Accept",
+            "Conditional",
+            "Reject"
+          ]
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "based_on_rows": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "symmetry_conservation_class",
+              "gap_protection_logic",
+              "leakage_retention_geometry",
+              "projector_derived_observables",
+              "threshold_mechanism"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "triggered_gates": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "UV1",
+              "UV2",
+              "UV3",
+              "UV4"
+            ]
+          },
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}

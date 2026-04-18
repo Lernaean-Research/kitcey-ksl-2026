@@ -1,0 +1,56 @@
+{
+  "model": "bounded_instantiation_qubit_liouvillian",
+  "parameters": {
+    "a0": 1.2,
+    "chi0": 0.35,
+    "dtau": 0.2,
+    "eps_spec": 0.01,
+    "gamma_env_formula": "0.04 + 0.03*a",
+    "gamma_stress_formula": "0.02 + 0.18*chi",
+    "kappa_bind_formula": "0.015 + 0.01*a*(1+chi)",
+    "omega_formula": "0.6 + 0.1*a"
+  },
+  "rates_at_anchor": {
+    "gamma_env": 0.076,
+    "gamma_stress": 0.083,
+    "kappa_bind": 0.031200000000000002,
+    "omega": 0.72
+  },
+  "spectral_anchor": {
+    "eigenvalues": [
+      [
+        -1.734723475976807e-18,
+        0.0
+      ],
+      [
+        0.1384,
+        0.0
+      ],
+      [
+        0.23520000000000008,
+        -0.7193236823572544
+      ],
+      [
+        0.23520000000000002,
+        0.7193236823572543
+      ]
+    ],
+    "delta_cl": 0.09680000000000002,
+    "gamma_leak": 0.0,
+    "criterion_margin": 0.08680000000000003,
+    "criterion_pass": true
+  },
+  "derived_outputs": {
+    "Pi": 1.0,
+    "A": 0.0,
+    "B": 0.0,
+    "chi_crit_est": 0.0
+  },
+  "contract_checks": {
+    "C1_sector_invariance": true,
+    "C2_channel_closure": true,
+    "C3_conservation_compatibility": true,
+    "C4_isolated_cluster_at_anchor": true,
+    "C5_reproducible_artifacts": true
+  }
+}

@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage*
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build and temporary outputs
+*.log
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# Large generated outputs
+outputs/figures/*.png
+outputs/figures/*.svg
+outputs/figures/*.pdf
+outputs/csv/*large*.csv
+outputs/json/*large*.json
+
+# SPARC raw data archive
+data/sparc/*.zip
+data/sparc/Rotmod_LTG/*.zip
