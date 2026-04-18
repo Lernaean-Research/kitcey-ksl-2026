@@ -1,0 +1,12 @@
+# Default ownership
+* @HConley-01
+
+# Analysis and scoring workflows
+/code/sparc_analysis/ @HConley-01
+/code/scorecard/ @HConley-01
+
+# Reproducibility and release metadata
+/reproducibility/ @HConley-01
+/archive/ @HConley-01
+/CITATION.cff @HConley-01
+/README.md @HConley-01

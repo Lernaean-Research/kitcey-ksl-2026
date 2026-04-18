@@ -1,0 +1,53 @@
+name: Reproducibility report
+description: Submit a reproduction success/failure report for manuscript-linked workflows.
+title: "[Reproducibility] "
+labels:
+  - reproducibility
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to report a complete or partial reproduction attempt.
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: Reproduction status
+      options:
+        - Full pass
+        - Partial pass
+        - Failed
+    validations:
+      required: true
+
+  - type: input
+    id: section
+    attributes:
+      label: Manuscript section or application
+      placeholder: Sec. 3.9 bounded-domain mechanism check
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps executed
+      description: Provide exact commands and order.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Artifacts produced
+      description: List output files and whether they matched expected results.
+      placeholder: outputs/json/bounded_instantiation_summary.json matched
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Deviations or blockers
+      description: Describe mismatches, missing dependencies, or edge cases.

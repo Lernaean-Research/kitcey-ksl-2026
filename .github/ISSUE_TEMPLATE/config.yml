@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Zenodo v2.2.0 preprint
+    url: https://doi.org/10.5281/zenodo.19638157
+    about: Canonical citable manuscript record
+  - name: All-versions concept DOI
+    url: https://doi.org/10.5281/zenodo.19636640
+    about: Resolves to the latest archived version

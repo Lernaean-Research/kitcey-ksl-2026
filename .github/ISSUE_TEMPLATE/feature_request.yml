@@ -1,0 +1,27 @@
+name: Feature request
+description: Propose an enhancement to code, documentation, or reproducibility tooling.
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What capability are you requesting?
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Scientific or workflow rationale
+      description: Why this change improves transparency, rigor, or reproducibility.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed implementation
+      description: Suggested scripts, files, or process updates.
